@@ -1,84 +1,115 @@
-# TruthLens Container Layer
+# TruthLens – LLM Output Verification & Risk Scoring Layer
 
-TruthLens is a high-performance verification engine and containment layer designed to intercept, analyze, and score generative AI responses before they reach end-users. Built for zero-trust environments where hallucinations represent critical failure vectors.
+TruthLens is a middleware verification system designed to intercept, analyze, and score Large Language Model (LLM) responses for hallucination risk and reliability.
 
-![TruthLens Infrastructure](frontend/public/vite.svg) <!-- Replace with actual screenshot path -->
+It introduces a structured validation layer between users and AI models to improve transparency, confidence, and deployment safety.
 
-## Executive Summary
+---
 
-As organizations rapidly deploy Large Language Models (LLMs) into production, the risk of confident fabrications—"hallucinations"—remains the most significant barrier to adoption in high-stakes domains (Finance, Healthcare, Legal, Defense). TruthLens operates as a middleware containment layer that intercepts generative output, critically evaluates it using Natural Language Inference (NLI) techniques against trusted data sources, and applies an enterprise-grade hallucination risk score.
+## 🎯 Problem Statement
 
-## Problem Statement
+Large Language Models can generate fluent but factually incorrect responses (hallucinations).  
+In high-stakes environments, unverified AI output can reduce trust and reliability.
 
-Generative AI models are optimized for fluency, not factual accuracy. When a model lacks information, it often degrades gracefully into plausible fabrication. For enterprise systems, a fluent lie is infinitely more dangerous than an obvious error. TruthLens solves the "Confident Fabrication Problem" by shifting the paradigm from *trusting* generative output to *cryptographically verifying* it against known realities.
+TruthLens addresses this by introducing a scoring and evaluation mechanism before responses are delivered to the user.
 
-## Architecture Overview
+---
 
-TruthLens operates synchronously between your application and the LLM endpoint.
+## 🚀 Solution Overview
 
-1.  **Intercept:** application sends a prompt to TruthLens.
-2.  **Generate:** TruthLens proxies the request to the upstream LLM (e.g., GPT-4, Claude).
-3.  **Extract:** TruthLens extracts isolated, testable claims from the generated response.
-4.  **Verify:** The NLI Engine validates each claim against trusted vector databases or live search mechanisms.
-5.  **Score:** A deterministic mathematical formula calculates the Hallucination Risk Score based on logical entailment, contradiction, and neutral grounding.
-6.  **Return:** The original response is returned to the client, enriched with the safety audit metadata.
+TruthLens evaluates LLM responses and generates structured verification metrics:
 
-## Hallucination Risk Scoring Logic
+- Hallucination Risk Score (%)
+- Confidence Score (%)
+- Structured reasoning output
+- Trust Indicator
 
-TruthLens abandons arbitrary "AI confidence" scores in favor of a mathematically consistent Entailment-Contradiction matrix.
+Instead of directly returning raw LLM output, the system analyzes and scores it through backend logic before presenting it to the user.
 
-*   Every claim extracted from a response is evaluated against the trusted source corpus.
-*   The NLI model classifies the relationship as:
-    *   **Entailment (Weight +1.0):** The source definitively supports the claim.
-    *   **Contradiction (Weight -2.0):** The source explicitly contradicts the claim.
-    *   **Neutral (Weight -0.5):** The source neither supports nor contradicts the claim (unverifiable).
-*   **Final Score:** The aggregate weights formulate an *Integrity Score* (0-100) and a *Hallucination Risk* percentage. If the risk exceeds an organizational threshold, the response is quarantined.
+---
 
-## Tech Stack
+## 🏗 System Architecture
 
-**Frontend:**
-*   React 18 + Vite
-*   Tailwind CSS (Ultra-Premium Glassmorphism Aesthetic)
-*   Framer Motion (Hardware-accelerated animations)
-*   Lucide React (Iconography)
+User  
+↓  
+Frontend Interface (React)  
+↓  
+Backend API (FastAPI)  
+↓  
+LLM Response Generation  
+↓  
+Verification & Scoring Logic  
+↓  
+Structured Risk-Based Output  
 
-**Backend:**
-*   FastAPI (High-performance async Python framework)
-*   SQLModel / SQLite (Database ORM)
-*   PyJWT & Passlib (JSON authentication)
-*   Uvicorn (ASGI web server)
+The architecture separates generation and validation layers for better modularity and extensibility.
 
-## Installation
+---
 
-### Prerequisites
-*   Python 3.10+
-*   Node.js 18+
+## ⚙️ Core Technologies
 
-### Backend Setup
-```bash
-cd backend
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\\Scripts\\activate
-pip install -r requirements.txt
-cp .env.example .env      # Add your API keys to the .env file
-uvicorn app.main:app --reload
-```
+**Backend**
+- FastAPI (API orchestration)
+- OpenAI API integration
+- Modular scoring logic
 
-### Frontend Setup
-```bash
-cd frontend
-npm install
-npm run dev
-```
+**Frontend**
+- React (interactive dashboard)
 
-Navigate to `http://localhost:5173` to access the TruthLens interface.
+**Deployment**
+- Docker-based containerization
 
-## Future Improvements
+---
 
-*   **Vector Database Integration:** Migrate from ephemeral NLI context to persistent Pinecone/Milvus vector stores for enterprise-scale RAG verification.
-*   **Streaming Support:** Implement Server-Sent Events (SSE) to stream validated tokens to the client in real-time while performing asynchronous risk scoring.
-*   **Custom NLI Tuning:** Allow organizations to fine-tune the classification layer on domain-specific corpora (e.g., specialized medical knowledge bases).
+## 📊 Key Features
 
-## Screenshots
+- Middleware interception of LLM outputs
+- Structured risk scoring mechanism
+- Confidence visualization dashboard
+- Modular backend design
+- Container-ready deployment
+- Clean separation between generation and validation layers
 
-*(Add screenshots of the landing page, dashboard, and audit visualization here)*
+---
+
+## 🧠 Design Principles
+
+- Modular architecture
+- Extensible scoring pipeline
+- Clear separation of concerns
+- Deployment-ready structure
+- Interview-defensible implementation
+
+---
+
+## 📂 Project Structure
+
+backend/        → Verification engine & API logic  
+frontend/       → User dashboard interface  
+docker-compose.yml  
+README.md  
+
+---
+
+## 🔮 Future Enhancements
+
+- Multi-LLM provider support
+- External knowledge source integration for stronger verification
+- Advanced fact-consistency scoring
+- Real-time streaming validation
+- Scalable logging & monitoring layer
+- API versioning for enterprise integration
+
+---
+
+## 📌 Status
+
+Prototype – Initial Release  
+Focused on architectural demonstration and LLM output validation research.
+
+---
+
+## 👨‍💻 Author
+
+Abhinav Sharma  
+B.Tech CSE | AI Systems & Data Science Enthusiast
