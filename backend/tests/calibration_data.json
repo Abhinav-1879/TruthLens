@@ -1,0 +1,98 @@
+[
+    {
+        "id": "gold_0_factual",
+        "description": "Pure factual text, fully supported.",
+        "expected_range": [
+            0,
+            10
+        ],
+        "claims": [
+            {
+                "status": "verified",
+                "evidence_strength": 1.0,
+                "assertiveness_score": 1.0,
+                "fingerprint": {
+                    "impact_level": "none"
+                }
+            },
+            {
+                "status": "verified",
+                "evidence_strength": 0.9,
+                "assertiveness_score": 0.8,
+                "fingerprint": {
+                    "impact_level": "none"
+                }
+            }
+        ]
+    },
+    {
+        "id": "gold_30_weak",
+        "description": "Speculative or weak sourcing, but not false.",
+        "expected_range": [
+            20,
+            40
+        ],
+        "claims": [
+            {
+                "status": "unverified",
+                "evidence_strength": 0.2,
+                "assertiveness_score": 0.3,
+                "fingerprint": {
+                    "impact_level": "none"
+                }
+            },
+            {
+                "status": "verified",
+                "evidence_strength": 0.6,
+                "assertiveness_score": 0.5,
+                "fingerprint": {
+                    "impact_level": "none"
+                }
+            }
+        ]
+    },
+    {
+        "id": "gold_80_contradicted",
+        "description": "Confident falsehoods.",
+        "expected_range": [
+            70,
+            90
+        ],
+        "claims": [
+            {
+                "status": "contradicted",
+                "evidence_strength": 0.0,
+                "assertiveness_score": 1.0,
+                "fingerprint": {
+                    "impact_level": "medium"
+                }
+            },
+            {
+                "status": "unverified",
+                "evidence_strength": 0.1,
+                "assertiveness_score": 0.9,
+                "fingerprint": {
+                    "impact_level": "medium"
+                }
+            }
+        ]
+    },
+    {
+        "id": "gold_100_fabrication",
+        "description": "Critical fabrication.",
+        "expected_range": [
+            100,
+            100
+        ],
+        "claims": [
+            {
+                "status": "contradicted",
+                "evidence_strength": 0.0,
+                "assertiveness_score": 1.0,
+                "fingerprint": {
+                    "impact_level": "critical"
+                }
+            }
+        ]
+    }
+]
